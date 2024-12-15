@@ -1,0 +1,50 @@
+Using virtual environment (bash):
+    source venv/Scripts/activate
+    deactivate
+
+Steps to replace dataset:
+Update code files for new csv file:
+    app.py 
+    manga_routes.py
+    manga.py
+    load_dataset.py
+    import_csv_to_db.py
+then enter these cmds (bash):
+    cd scripts
+    python load_dataset.py
+    cd ..
+    python create_db.py
+    python scripts/import_csv_to_db.py
+    flask run
+
+
+project file structure:
+manga_tracker/
+│
+├── app.py                   # Main Flask app
+├── data/        
+|   └── mangaMAL.db            
+|   └── mangaMAL.csv         # Kaggle dataset
+├── models/                  # Database models
+│   └── manga.py             # Manga database model
+├── routes/                  # Blueprint routes
+│   └── manga_routes.py      # Manga-related routes
+├── static/                  # Static assets (CSS, JS)
+│   ├── style.css            # Custom styles
+│   └── app.js               # Custom JavaScript
+├── templates/               # HTML templates
+│   ├── index.html           # Homepage
+│   ├── search.html          # Search results page
+│   └── layout.html          # Base template
+├── scripts/                 # Scripts and utilities
+│   └── load_dataset.py      # Dataset processing script
+|    └── import_csv_to_db.py   
+├── migrations/              # Database migrations (optional, for Flask-Migrate)
+├── requirements.txt         # Dependencies
+└── venv/                    # Virtual environment
+└── create_db.py      
+
+
+# Columns used in mangaMAL.csv
+# manga_id,title,type,score,status,volumes,chapters,favorites,
+# sfw,genres,themes,demographics,synopsis,main_picture,url
