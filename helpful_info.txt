@@ -1,3 +1,15 @@
+Commit changes Git (bash):
+    git add .
+    git commit -m "message about the changes"
+    git push
+
+Branches Git (bash):
+    git checkout -b <descriptive name of branch>
+    (once new branch works)
+    git add .
+    git commit -m "message about the changes"
+    git push -u origin <descriptive name of branch>
+
 Using virtual environment (bash):
     source venv/Scripts/activate
     deactivate
@@ -25,6 +37,17 @@ manga_tracker/
 ├── data/        
 |   └── mangaMAL.db            
 |   └── mangaMAL.csv         # Kaggle dataset
+├── frontend/
+|   └── .next/
+|   └── node_modules/
+|   └── public/
+|   └── src/
+|       └── app/
+|           └── manga/
+|               └── page.tsx
+|           └── page.tsx
+|           └── layout.tsx
+|           └── globals.css
 ├── models/                  # Database models
 │   └── manga.py             # Manga database model
 ├── routes/                  # Blueprint routes
