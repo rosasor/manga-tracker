@@ -4,11 +4,21 @@ Commit changes Git (bash):
     git push
 
 Branches Git (bash):
-    git checkout -b <descriptive name of branch>
+    git checkout -b <descriptive name of branch> (Makes new branch)
     (once new branch works)
     git add .
     git commit -m "message about the changes"
     git push -u origin <descriptive name of branch>
+
+Merge branch (bash):
+    (once new branch works)
+    git checkout main
+    git pull origin main
+    git merge <descriptive name of branch>
+    git commit -m "Merge <descriptive name of branch> into main"
+    git push origin main
+    git branch -d <descriptive name of branch> (local)
+    git push origin --delete <descriptive name of branch> (Github)
 
 Using virtual environment (bash):
     source venv/Scripts/activate

@@ -108,7 +108,7 @@ const MangaPage = () => {
             ...prev,
             currentPage: newPage
         }));
-        // setSearchTriggered(true);  // Trigger the search to update the page
+        setSearchTriggered(true);  // Trigger the search to update the page
     };
 
     return (
