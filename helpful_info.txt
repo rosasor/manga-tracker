@@ -53,15 +53,33 @@ manga_tracker/
 |   └── public/
 |   └── src/
 |       └── app/
+|           └── api/
+|               └── auth/
+|                   └── [...nextauth]/
+|                       └── page.ts
+|           └── auth/
+|               └── signin/
+|                   └── page.tsx   # Sign-in page route (/auth/signin)
+|               └── signin/
+|                   └── page.tsx   # Sign-up page route (/auth/signup)
 |           └── manga/
-|               └── page.tsx
-|           └── page.tsx
+|               └── page.tsx     # Manga search page route (/manga)
+|           └── page.tsx         # Home page (/)
 |           └── layout.tsx
 |           └── globals.css
+|   └── package.json
+|   └── .env.local
+|   └── .env
+├── instance/
+├── migrations/               
+│   └── env.py
+│   └── versions/
 ├── models/                  # Database models
 │   └── manga.py             # Manga database model
+│   └── user.py              # User database model
 ├── routes/                  # Blueprint routes
 │   └── manga_routes.py      # Manga-related routes
+│   └── auth_routes.py
 ├── static/                  # Static assets (CSS, JS)
 │   ├── style.css            # Custom styles
 │   └── app.js               # Custom JavaScript
@@ -72,7 +90,6 @@ manga_tracker/
 ├── scripts/                 # Scripts and utilities
 │   └── load_dataset.py      # Dataset processing script
 |    └── import_csv_to_db.py   
-├── migrations/              # Database migrations (optional, for Flask-Migrate)
 ├── requirements.txt         # Dependencies
 └── venv/                    # Virtual environment
 └── create_db.py      
