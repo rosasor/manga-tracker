@@ -1,7 +1,17 @@
-// /frontend/src/app/api/auth/[...nextauth]/route.ts
+// \frontend\src\app\api\auth\[...nextauth]\route.ts
+
 import NextAuth from "next-auth";
 import CredentialsProvider from "next-auth/providers/credentials";
 import axios from "axios";
+import jwt from "jsonwebtoken"; // Import jsonwebtoken
+
+
+type User = {
+  id: string;
+  email: string;
+  username: string;
+};
+
 
 const authHandler = NextAuth({
   providers: [
@@ -37,13 +47,19 @@ const authHandler = NextAuth({
   callbacks: {
     async jwt({ token, user }) {
       if (user) {
-        token.id = user.id;
-        token.email = user.email;
+        token.id = user.id as string; // Ensure id is string
+        token.email = user.email || ""; // Fallback to empty string
+        token.accessToken = jwt.sign(
+          { id: user.id, email: user.email },
+          "KB7xdcAXNEkx6R8XbVqlXG5svYCQkvsy6hMkaEVf7QA", // SECRET_KEY
+          { algorithm: "HS256", expiresIn: "1h" }
+        );
       }
       return token;
     },
     async session({ session, token }) {
-      session.user = token;
+      session.user.id = token.id;
+      session.accessToken = token.accessToken; // Add JWT to session
       return session;
     },
   },

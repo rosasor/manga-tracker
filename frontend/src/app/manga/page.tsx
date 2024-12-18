@@ -1,6 +1,8 @@
 // /frontend/src/app/manga/page.tsx
 "use client"
 import { useEffect, useState } from 'react';
+import { useSession } from "next-auth/react";
+
 
 type Manga = {
     id: number;
@@ -11,6 +13,8 @@ type Manga = {
 };
 
 const MangaPage = () => {
+    const { data: session } = useSession();
+
     const [mangaList, setMangaList] = useState<Manga[]>([]);
     const [filters, setFilters] = useState({
         name: '',
@@ -24,6 +28,43 @@ const MangaPage = () => {
         pages: 0,
         currentPage: 1
     });
+
+    const handleAddToList = async (mangaId: number, listType: string) => {
+        try {
+            const response = await fetch("http://localhost:3000/api/auth/session");
+            const sessionData = await response.json();
+    
+            const token = sessionData?.accessToken; // Extract JWT from session
+            if (!token) throw new Error("Missing authentication token");
+    
+            const res = await fetch("http://127.0.0.1:5000/api/manga_list", {
+                method: "POST",
+                headers: {
+                    "Content-Type": "application/json",
+                    "Authorization": `Bearer ${token}`, // Send JWT to Flask
+                },
+                body: JSON.stringify({ manga_id: mangaId, list_type: listType }),
+            });
+
+            const result = await res.json();
+            console.log("Response Body:", result); // Debug response body
+    
+            if (res.status === 401) {
+                alert("Unauthorized. Please log in again.");
+                return;
+            }
+    
+            if (!res.ok) {
+                throw new Error("Failed to add manga to list.");
+            }
+    
+            alert(`Successfully added to ${listType} list!`);
+        } catch (error) {
+            console.error("Error adding manga to list:", error);
+            alert("An error occurred. Please try again.");
+        }
+    };
+    
 
     // Handle input changes
     const handleInputChange = (e: React.ChangeEvent<HTMLInputElement>) => {
@@ -181,12 +222,23 @@ const MangaPage = () => {
                 <tbody>
                     {mangaList.length === 0 ? (
                         <tr>
-                            <td colSpan={1}>No manga found</td>
+                            <td colSpan={2}>No manga found</td>
                         </tr>
                     ) : (
                         mangaList.map((manga) => (
                             <tr key={manga.id}>
                                 <td>{manga.name}</td>
+                                <td>
+                                    <button onClick={() => handleAddToList(manga.id, 'reading')}>
+                                        Add to Reading
+                                    </button>
+                                    <button onClick={() => handleAddToList(manga.id, 'completed')}>
+                                        Add to Completed
+                                    </button>
+                                    <button onClick={() => handleAddToList(manga.id, 'dropped')}>
+                                        Add to Dropped
+                                    </button>
+                                </td>
                             </tr>
                         ))
                     )}

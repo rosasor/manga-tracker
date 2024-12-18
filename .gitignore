@@ -4,3 +4,4 @@ __pycache__/
 *.db
 data/*.csv
 good_boy_toby.txt
+*.env

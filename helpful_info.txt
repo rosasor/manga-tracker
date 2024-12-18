@@ -45,54 +45,47 @@ manga_tracker/
 │
 ├── app.py                   # Main Flask app
 ├── data/        
-|   └── mangaMAL.db            
+|   └── mangaMAL.db          # data base  
 |   └── mangaMAL.csv         # Kaggle dataset
-├── frontend/
+├── frontend/                # Nextjs
 |   └── .next/
 |   └── node_modules/
 |   └── public/
 |   └── src/
-|       └── app/
-|           └── api/
-|               └── auth/
-|                   └── [...nextauth]/
-|                       └── page.ts
-|           └── auth/
-|               └── signin/
-|                   └── page.tsx   # Sign-in page route (/auth/signin)
-|               └── signin/
-|                   └── page.tsx   # Sign-up page route (/auth/signup)
-|           └── manga/
-|               └── page.tsx     # Manga search page route (/manga)
-|           └── page.tsx         # Home page (/)
-|           └── layout.tsx
-|           └── globals.css
+|   |   └── app/
+|   |   |   └── api/
+|   |   |   |   └── auth/
+|   |   |   |       └── [...nextauth]/
+|   |   |   |           └── route.ts
+|   |   |   └── auth/
+|   |   |   |   └── signin/
+|   |   |   |       └── page.tsx   # Sign-in page route (/auth/signin)
+|   |   |   |   └── signin/
+|   |   |   |       └── page.tsx   # Sign-up page route (/auth/signup)
+|   |   |   └── manga/
+|   |   |   |   └── page.tsx     # Manga search page route (/manga)
+|   |   |   └── page.tsx         # Home page (/)
+|   |   |   └── layout.tsx
+|   |   |   └── globals.css
+|   |   └── types/
+|   |       └── next-auth.d.ts
 |   └── package.json
 |   └── .env.local
 |   └── .env
-├── instance/
 ├── migrations/               
 │   └── env.py
 │   └── versions/
 ├── models/                  # Database models
 │   └── manga.py             # Manga database model
 │   └── user.py              # User database model
+│   └── user_manga_list.py   # User manga list model
 ├── routes/                  # Blueprint routes
 │   └── manga_routes.py      # Manga-related routes
-│   └── auth_routes.py
-├── static/                  # Static assets (CSS, JS)
-│   ├── style.css            # Custom styles
-│   └── app.js               # Custom JavaScript
-├── templates/               # HTML templates
-│   ├── index.html           # Homepage
-│   ├── search.html          # Search results page
-│   └── layout.html          # Base template
+│   └── auth_routes.py       # User auth related routes
 ├── scripts/                 # Scripts and utilities
 │   └── load_dataset.py      # Dataset processing script
-|    └── import_csv_to_db.py   
-├── requirements.txt         # Dependencies
-└── venv/                    # Virtual environment
-└── create_db.py      
+|   └── import_csv_to_db.py  # Import kaggle csv file into mangaMAL.db
+└── venv/                    # Virtual environment   
 
 
 # Columns used in mangaMAL.csv
